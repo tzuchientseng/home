@@ -1,151 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect Page with Animation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sunny</title>
+    <link rel="icon" href="images/favicon.ico">
+    <!-- 預設不載入 CSS -->
+    <link id="dynamicCSS" rel="stylesheet" href="" disabled>
     <style>
-/* 設置整個頁面為全螢幕 */
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    background-size: 300% 300%;
-    animation: backgroundAnimation 10s ease infinite;
-}
-
-/* 背景動畫 */
-@keyframes backgroundAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* 彈出框的樣式 */
-.fullscreen-div {
-    text-align: center;
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    transform: translateY(-50px) rotate(-10deg) scale(0.8);
-    animation: popupComplex 1s cubic-bezier(0.42, 0, 0.58, 1) forwards;
-}
-
-/* 複雜彈出動畫的定義 */
-@keyframes popupComplex {
-    0% {
-        opacity: 0;
-        transform: translateY(-50px) rotate(-10deg) scale(0.8);
-    }
-    50% {
-        opacity: 0.6;
-        transform: translateY(20px) rotate(5deg) scale(1.1);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotate(0deg) scale(1);
-    }
-}
-
-/* 標題樣式 */
-h1 {
-    font-size: 2.5em;
-    color: #343a40;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    animation: fadeInText 2s ease forwards;
-}
-
-/* 文字淡入動畫 */
-@keyframes fadeInText {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 按鈕的基本樣式 */
-.button {
-    display: inline-block;
-    width: 180px;
-    padding: 12px 0;
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    margin: 15px 0;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInButton 2s ease 0.8s forwards; /* 延遲動畫讓按鈕稍後出現 */
-}
-
-/* Blog 按鈕橙色主題 */
-#blogButton {
-    background: linear-gradient(135deg, #ff9800, #e65100); /* 橘色漸變 */
-    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4); /* 橘色陰影 */
-}
-
-#blogButton:hover {
-    background: linear-gradient(135deg, #e65100, #bf360c); /* 深橘色漸變 */
-    box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6); /* 加強陰影效果 */
-    transform: translateY(-3px) scale(1.05); /* 當滑過時稍微放大 */
-    transition: all 0.3s ease;
-}
-
-/* API 按鈕藍色主題 */
-#apiButton {
-    background: linear-gradient(135deg, #42a5f5, #1565c0); /* 藍色漸變 */
-    box-shadow: 0 5px 15px rgba(66, 165, 245, 0.4); /* 藍色陰影 */
-}
-
-#apiButton:hover {
-    background: linear-gradient(135deg, #1565c0, #0d47a1); /* 深藍色漸變 */
-    box-shadow: 0 8px 20px rgba(33, 150, 243, 0.6); /* 加強陰影效果 */
-    transform: translateY(-3px) scale(1.05); /* 當滑過時稍微放大 */
-    transition: all 0.3s ease;
-}
-
-/* 按鈕淡入動畫 */
-@keyframes fadeInButton {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 小螢幕設置 */
-@media (max-width: 600px) {
-    .button {
-        width: 140px;
-        font-size: 16px;
-    }
-}
-
+      /* 預設顯示原始畫面，隱藏優化畫面 */
+      .original-div { display: block; }
+      .fullscreen-div { display: none; }
     </style>
-</head>
-<body>
-    <div class="fullscreen-div">
-        <h1>Welcome!</h1>
-        <a href="https://blog.sunnytseng.com" id="blogButton" class="button">My Blog</a>
-        <a href="https://api.sunnytseng.com" id="apiButton" class="button">My API</a>
+  </head>
+  <body>
+    <div class="original-div">
+      <span>歡迎來到我的網站</span>
+      <hr>
+      <ul>
+        <li>我的名字叫曾子謙</li>
+        <li>英文名字叫 Sunny</li>
+        <li>下面有自己其他的網站鏈結</li>
+      </ul>
+      <hr>
+      <a href="https://home.sunnytseng.com" target="_blank">My WEB</a>
+      <br>
+      <a href="https://math.sunnytseng.com" target="_blank">Math</a>
+      <!-- <a href="https://api.sunnytseng.com" target="_blank" style="cursor: not-allowed; pointer-events: none; text-decoration:line-through; text-decoration-color: gray;">Math API (Disabled)</a> -->
+      <br>
+      <a href="https://db.sunnytseng.com" target="_blank">My DB</a>
+      <br>
+      <a href="https://relation.sunnytseng.com/" target="_blank">Relation</a>
+      <br>
+      <a href="https://buymeacoffee.com/sunnytseng" target="_blank">Donate</a>
+      <hr>
+      <span>喔對了 如果你覺得畫面很醜可以點選優化</span>
+      <br>
+      <label for="myCheckbox1">優化</label>
+      <input type="checkbox" id="myCheckbox1" name="option">
     </div>
-</body>
+
+    <div class="fullscreen-div">
+      <h1>Welcome!</h1>
+      <img src="images/sunny.png" alt="icon" width="200" height="200">
+      <a href="https://home.sunnytseng.com" id="blogButton" class="button" target="_blank">My WEB</a>
+      <a href="https://math.sunnytseng.com" id="mathButton" class="button" target="_blank">Math</a>
+      <a href="https://db.sunnytseng.com" id="dbButton" class="button" target="_blank">My DB</a>
+      <a href="https://relation.sunnytseng.com" id="relationButton" class="button" target="_blank">Relation</a>
+      <br>
+      <a href="https://buymeacoffee.com/sunnytseng" id="donateButton" class="button2" target="_blank">Donate</a>
+      <br>
+
+      <label for="myCheckbox2" style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+        <input type="checkbox" id="myCheckbox2" name="option" 
+        style="width: 20px; height: 20px; accent-color: red; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+        onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 5px rgba(255, 0, 0, 0.5)';"
+        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+        <h5 style="margin: 0;">移除優化</h5>
+      </label>
+    </div>
+  </body>
 </html>
+<script>
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  function toggleView(isChecked) {
+    var cssLink = document.getElementById("dynamicCSS");
+    var originalDiv = document.querySelector(".original-div");
+    var fullscreenDiv = document.querySelector(".fullscreen-div");
+
+    if (isChecked) {
+      cssLink.href = "css/style.css";
+      cssLink.removeAttribute("disabled");
+      originalDiv.style.display = "none";
+      fullscreenDiv.style.display = "block";
+    } else {
+      cssLink.href = "";
+      cssLink.setAttribute("disabled", "true");
+      originalDiv.style.display = "block";
+      fullscreenDiv.style.display = "none";
+    }
+
+    // 確保所有 checkbox 都同步 !!
+    checkboxes.forEach(cb => cb.checked = isChecked);
+  }
+
+  // 讓所有 checkbox 監聽 change 事件 !!
+  checkboxes.forEach(cb => {
+    cb.addEventListener("change", function() {
+      toggleView(this.checked);
+    });
+  });
+</script>
+
