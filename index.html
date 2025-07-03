@@ -7,6 +7,9 @@
     <link rel="icon" href="images/favicon.ico">
     <!-- 預設不載入 CSS -->
     <link id="dynamicCSS" rel="stylesheet" href="" disabled>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       /* 預設顯示原始畫面，隱藏優化畫面 */
       .original-div { display: block; }
@@ -23,20 +26,13 @@
         <li>下面有自己其他的網站鏈結</li>
       </ul>
       <hr>
-      <a href="https://home.sunnytseng.com" target="_blank">My WEB</a>
-      <br>
-      <a href="https://math.sunnytseng.com" target="_blank">Math</a>
-      <!-- <a href="https://api.sunnytseng.com" target="_blank" style="cursor: not-allowed; pointer-events: none; text-decoration:line-through; text-decoration-color: gray;">Math API (Disabled)</a> -->
-      <br>
-      <!-- <a href="https://db.sunnytseng.com" target="_blank">My DB</a> -->
-      <a href="https://todo.sunnytseng.com" target="_blank">My DB</a>
-      <br>
-      <a href="https://relation.sunnytseng.com/" target="_blank">Relation</a>
-      <br>
+      <a href="https://home.sunnytseng.com" target="_blank">My WEB</a><br>
+      <a href="https://math.sunnytseng.com" target="_blank">Math</a><br>
+      <a href="https://todo.sunnytseng.com" target="_blank">My DB</a><br>
+      <a href="https://relation.sunnytseng.com/" target="_blank">Relation</a><br>
       <a href="https://buymeacoffee.com/sunnytseng" target="_blank">Donate</a>
       <hr>
-      <span>喔對了 如果你覺得畫面很醜可以點選優化</span>
-      <br>
+      <span>喔對了 如果你覺得畫面很醜可以點選優化</span><br>
       <label for="myCheckbox1">優化</label>
       <input type="checkbox" id="myCheckbox1" name="option">
     </div>
@@ -46,12 +42,9 @@
       <img src="images/sunny.png" alt="icon" width="200" height="200">
       <a href="https://home.sunnytseng.com" id="blogButton" class="button" target="_blank">My WEB</a>
       <a href="https://math.sunnytseng.com" id="mathButton" class="button" target="_blank">Math</a>
-      <!-- <a href="https://db.sunnytseng.com" id="dbButton" class="button" target="_blank">My DB</a> -->
       <a href="https://todo.sunnytseng.com" id="dbButton" class="button" target="_blank">My DB</a>
-      <a href="https://relation.sunnytseng.com" id="relationButton" class="button" target="_blank">Relation</a>
-      <br>
-      <a href="https://buymeacoffee.com/sunnytseng" id="donateButton" class="button2" target="_blank">Donate</a>
-      <br>
+      <a href="https://relation.sunnytseng.com" id="relationButton" class="button" target="_blank">Relation</a><br>
+      <a href="https://buymeacoffee.com/sunnytseng" id="donateButton" class="button2" target="_blank">Donate</a><br>
 
       <label for="myCheckbox2" style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
         <input type="checkbox" id="myCheckbox2" name="option" 
@@ -61,37 +54,98 @@
         <h5 style="margin: 0;">移除優化</h5>
       </label>
     </div>
+
+    <script>
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+      function toggleView(isChecked) {
+        var cssLink = document.getElementById("dynamicCSS");
+        var originalDiv = document.querySelector(".original-div");
+        var fullscreenDiv = document.querySelector(".fullscreen-div");
+
+        if (isChecked) {
+          cssLink.href = "css/style.css";
+          cssLink.removeAttribute("disabled");
+          originalDiv.style.display = "none";
+          fullscreenDiv.style.display = "block";
+        } else {
+          cssLink.href = "";
+          cssLink.setAttribute("disabled", "true");
+          originalDiv.style.display = "block";
+          fullscreenDiv.style.display = "none";
+        }
+
+        // 同步所有 checkbox
+        checkboxes.forEach(cb => cb.checked = isChecked);
+      }
+
+      // 監聽 checkbox
+      checkboxes.forEach(cb => {
+        cb.addEventListener("change", function() {
+          toggleView(this.checked);
+        });
+      });
+
+      // 頁面載入時彈出 SweetAlert 自我介紹
+      window.addEventListener('load', function() {
+        Swal.fire({
+          title: '👋 Hope Tech-Team 的收件者!',
+          html: `
+            <p>抱歉因為我沒有經營Linkdin，所以就給作品集的鏈結!</p>
+            <h4>💡 連結快速介紹</h4>
+            <hr>
+            <ul>
+              <li>My Web: 我個人網站(Blog + ChatGPT API串接)</li>
+              <li>My DB: 我私人用後端資料庫</li>
+              <h5>-- 下方需要帳密的,均用打 guest 可以瀏覽 --</h5>
+              <li>Math: 我工作用的數學教育網站</li>
+              <li>Relation: 復刻 X(twitter UI)社群網站</li>
+            </ul>
+          `,
+          imageUrl: 'images/sunny.png',
+          imageWidth: 150,
+          imageHeight: 150,
+          imageAlt: 'Sunny Icon',
+          confirmButtonText: 'ok !',
+          confirmButtonColor: '#3085d6',
+          backdrop: true
+        }).then(() => {
+          // 第二個 alert 等第一個確認後再彈出
+          Swal.fire({
+            title: '👋 想對 Tech-Team 說的話!',
+            html: `
+              <p>雖然我不是甚麼職業工程師~</p>
+              <p>目前是做教育相關工作，但閒暇時間喜歡寫寫程式，學學新知識。希望可以透過所學的服事神!</p>
+              <p>最後感謝您點開作品集，也希望能有機會和 Hope Tech-Team 合作!</p>
+            `,
+            imageAlt: 'Sunny Icon',
+            confirmButtonText: 'ok !',
+            confirmButtonColor: '#198754',
+            backdrop: true
+          });
+        });
+      });
+</script>
+
   </body>
 </html>
-<script>
-  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-  function toggleView(isChecked) {
-    var cssLink = document.getElementById("dynamicCSS");
-    var originalDiv = document.querySelector(".original-div");
-    var fullscreenDiv = document.querySelector(".fullscreen-div");
-
-    if (isChecked) {
-      cssLink.href = "css/style.css";
-      cssLink.removeAttribute("disabled");
-      originalDiv.style.display = "none";
-      fullscreenDiv.style.display = "block";
-    } else {
-      cssLink.href = "";
-      cssLink.setAttribute("disabled", "true");
-      originalDiv.style.display = "block";
-      fullscreenDiv.style.display = "none";
-    }
-
-    // 確保所有 checkbox 都同步 !!
-    checkboxes.forEach(cb => cb.checked = isChecked);
-  }
-
-  // 讓所有 checkbox 監聽 change 事件 !!
-  checkboxes.forEach(cb => {
-    cb.addEventListener("change", function() {
-      toggleView(this.checked);
-    });
-  });
-</script>
+      <!---->
+      <!-- window.addEventListener('load', function() { -->
+      <!--   Swal.fire({ -->
+      <!--     title: '哈囉！我是 Sunny', -->
+      <!--     html: ` -->
+      <!--       <p>👋 歡迎來到我的網站</p> -->
+      <!--       <p>我的名字叫 曾子謙，英文名字叫 Sunny。</p> -->
+      <!--       <p>下面有我的其他網站連結，歡迎點擊探索。</p> -->
+      <!--     `, -->
+      <!--     imageUrl: 'images/sunny.png', -->
+      <!--     imageWidth: 150, -->
+      <!--     imageHeight: 150, -->
+      <!--     imageAlt: 'Sunny Icon', -->
+      <!--     confirmButtonText: '開始探索吧！', -->
+      <!--     confirmButtonColor: '#3085d6', -->
+      <!--     backdrop: true -->
+      <!--   }); -->
+      <!-- }); -->
+      <!---->
 
