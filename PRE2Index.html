@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sunny</title>
+    <link rel="icon" href="images/favicon.ico">
+    <!-- 預設不載入 CSS -->
+    <link id="dynamicCSS" rel="stylesheet" href="" disabled>
+    <style>
+      /* 預設顯示原始畫面，隱藏優化畫面 */
+      .original-div { display: block; }
+      .fullscreen-div { display: none; }
+    </style>
+  </head>
+  <body>
+    <div class="original-div">
+      <span>歡迎來到我的網站</span>
+      <hr>
+      <ul>
+        <li>我的名字叫曾子謙</li>
+        <li>英文名字叫 Sunny</li>
+        <li>下面有自己其他的網站鏈結</li>
+      </ul>
+      <hr>
+      <a href="https://home.sunnytseng.com" target="_blank">My WEB</a>
+      <br>
+      <a href="https://math.sunnytseng.com" target="_blank">Math</a>
+      <!-- <a href="https://api.sunnytseng.com" target="_blank" style="cursor: not-allowed; pointer-events: none; text-decoration:line-through; text-decoration-color: gray;">Math API (Disabled)</a> -->
+      <br>
+      <!-- <a href="https://db.sunnytseng.com" target="_blank">My DB</a> -->
+      <a href="https://todo.sunnytseng.com" target="_blank">My DB</a>
+      <br>
+      <a href="https://relation.sunnytseng.com/" target="_blank">Relation</a>
+      <br>
+      <a href="https://buymeacoffee.com/sunnytseng" target="_blank">Donate</a>
+      <hr>
+      <span>喔對了 如果你覺得畫面很醜可以點選優化</span>
+      <br>
+      <label for="myCheckbox1">優化</label>
+      <input type="checkbox" id="myCheckbox1" name="option">
+    </div>
+
+    <div class="fullscreen-div">
+      <h1>Welcome!</h1>
+      <img src="images/sunny.png" alt="icon" width="200" height="200">
+      <a href="https://home.sunnytseng.com" id="blogButton" class="button" target="_blank">My WEB</a>
+      <a href="https://math.sunnytseng.com" id="mathButton" class="button" target="_blank">Math</a>
+      <!-- <a href="https://db.sunnytseng.com" id="dbButton" class="button" target="_blank">My DB</a> -->
+      <a href="https://todo.sunnytseng.com" id="dbButton" class="button" target="_blank">My DB</a>
+      <a href="https://relation.sunnytseng.com" id="relationButton" class="button" target="_blank">Relation</a>
+      <br>
+      <a href="https://buymeacoffee.com/sunnytseng" id="donateButton" class="button2" target="_blank">Donate</a>
+      <br>
+
+      <label for="myCheckbox2" style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+        <input type="checkbox" id="myCheckbox2" name="option" 
+        style="width: 20px; height: 20px; accent-color: red; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+        onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 5px rgba(255, 0, 0, 0.5)';"
+        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+        <h5 style="margin: 0;">移除優化</h5>
+      </label>
+    </div>
+  </body>
+</html>
+<script>
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  function toggleView(isChecked) {
+    var cssLink = document.getElementById("dynamicCSS");
+    var originalDiv = document.querySelector(".original-div");
+    var fullscreenDiv = document.querySelector(".fullscreen-div");
+
+    if (isChecked) {
+      cssLink.href = "css/style.css";
+      cssLink.removeAttribute("disabled");
+      originalDiv.style.display = "none";
+      fullscreenDiv.style.display = "block";
+    } else {
+      cssLink.href = "";
+      cssLink.setAttribute("disabled", "true");
+      originalDiv.style.display = "block";
+      fullscreenDiv.style.display = "none";
+    }
+
+    // 確保所有 checkbox 都同步 !!
+    checkboxes.forEach(cb => cb.checked = isChecked);
+  }
+
+  // 讓所有 checkbox 監聽 change 事件 !!
+  checkboxes.forEach(cb => {
+    cb.addEventListener("change", function() {
+      toggleView(this.checked);
+    });
+  });
+</script>
+
